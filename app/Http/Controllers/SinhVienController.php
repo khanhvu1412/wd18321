@@ -22,7 +22,7 @@ class SinhVienController extends Controller
             ]
             ];
             return view('thong-tin-gt-sv')->with([
-                'sv'   => $sv
+                'sinhvien'   => $sv
             ]);
     }
 }

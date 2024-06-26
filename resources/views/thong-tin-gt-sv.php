@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-            <?php foreach($sv as $value):?>
+            <?php foreach($sinhvien as $value):?>
                 <tr>
                     <td><?= $value['id'] ?></td>
                     <td><?= $value['name'] ?></td>
