@@ -30,6 +30,7 @@ Route::get('/get-user/{id}/{name?}', [UserContronller::class, 'getUser']);
 // http://127.0.0.1:8000/update-user?id=1&name=vu
 Route::get('/update-user', [UserContronller::class, 'updateUser']);
 
+// Lab1
 Route::get('/thong-tin-sinh-vien',[SinhVienController::class, 'thongtinSV']);
 
 
