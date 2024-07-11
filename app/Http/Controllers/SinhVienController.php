@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class SinhVienController extends Controller
 {
-    function thongtinSV(){
+    function thongtinSV()
+    {
         $sv = [
             [
                 'id' => '1',
@@ -20,9 +21,9 @@ class SinhVienController extends Controller
                 'age' => '25',
                 'major' => "Giáo viên"
             ]
-            ];
-            return view('thong-tin-gt-sv')->with([
-                'sinhvien'   => $sv
-            ]);
+        ];
+        return view('thong-tin-gt-sv')->with([
+            'sinhvien' => $sv
+        ]);
     }
 }
