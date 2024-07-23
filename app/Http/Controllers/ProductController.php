@@ -8,91 +8,53 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function listProducts()
-    {
-        $listProducts = DB::table('product')
-            ->join('category', 'category.id', '=', 'product.category_id')
-            ->select('product.id', 'product.name', 'category.category_name', 'product.price', 'product.view')
-            ->orderByDesc('view')
-            ->get();
-        return view('products/listProducts')->with([
-            'listProducts' => $listProducts
-        ]);
+    function list()  {
+        $product= DB::table('product')->join('category','category.id','=','product.category_id')
+        ->select('product.id','product.name','product.price','product.view','category.name as cate_name','product.create_at','product.update_at')->orderByDesc('product.view')->get();
+        $category=DB::table('category')->get();
+        return view('product/list')->with(['product'=>$product,'category'=>$category]);
     }
-
-    public function addProducts()
-    {
-        $category = DB::table('category')->select('id', 'category_name')->get();
-        return view('products/addProducts')->with([
-            'category' => $category
-        ]);
+    function add()  {
+        $category=DB::table('category')->get();
+        return view('product/add')->with(['category'=>$category]);
     }
-
-    public function addPostProducts(Request $req)
-    {
-        $data = [
-            'name' => $req->nameProduct,
-            'category_id' => $req->categoryProduct,
-            'price' => $req->priceProduct,
-            'view' => $req->viewProduct,
-            'create_at' => Carbon::now(),
-            'update_at' => Carbon::now(),
+    function postProduct(Request $req) {
+        $data=[
+            'name'=>$req->name,
+            'category_id'=>$req->category_id,
+            'price'=>$req->price,
+            'view'=>$req->view,
+            'create_at'=>Carbon::now(),
         ];
-
         DB::table('product')->insert($data);
-
-        return redirect()->route('products.listProducts');
+        return redirect()->route('product.list');
     }
-
-    public function deleteProducts($idPro)
-    {
-        DB::table('product')->where('id', $idPro)->delete();
-        return redirect()->route('products.listProducts');
+    function deletePro($idPro)  {
+        DB::table('product')->where('id',$idPro)->delete();
+        return redirect()->route('product.list');
     }
-
-    public function updateProducts($idPro)
-    {
-        $category = DB::table('category')->select('id', 'category_name')->get();
-        $product = DB::table('product')->where('id', $idPro)->first();
-        return view('products/updateProducts')->with([
-            'product' => $product,
-            'category' => $category
-        ]);
-
+    function updatePro($idPro)  {
+        $product=DB::table('product')->find($idPro);
+        $category=DB::table('category')->get();
+        return view('product/update')->with(['category'=>$category,'product'=>$product]);
     }
-
-    public function updatePostProducts(Request $req)
-    {
-        $data = [
-            'name' => $req->nameProduct,
-            'category_id' => $req->categoryProduct,
-            'price' => $req->priceProduct,
-            'view' => $req->viewProduct,
-            'update_at' => Carbon::now(),
+    function updatePostPro($idPro, Request $req)  {
+        $data=[
+            'name'=>$req->name,
+            'category_id'=>$req->category_id,
+            'price'=>$req->price,
+            'view'=>$req->view,
+            'update_at'=>Carbon::now(),
         ];
-        DB::table('product')->where('id', $req->idPro)->update( $data );
-
-        return redirect()->route('products.listProducts');
+        DB::table('product')->where('id',$idPro)->update($data);
+        return redirect()->route('product.list');
     }
-
-    
-
-    public function searchProducts(){
-        return view('products/searchProducts');
+    function timkiem(Request $req) {
+        $timkiem=$req->timkiem;
+        $product=DB::table('product')->join('category','category.id','=','product.category_id')
+        ->select('product.id','product.name','product.price','product.view','category.name as cate_name','product.create_at','product.update_at',)
+        ->where('product.name','like','%'.$timkiem.'%')->get();
+        // dd($product);
+        return view('product/thongtinsanpham')->with(['product'=>$product]);
     }
-
-    // public function searchGetProducts(Request $req){
-    //     $query = $req->input('query');
-
-    //     if ($query) {
-    //         $products = DB::table('product')->where('name', 'like', "%{$query}%")->get();
-    //     } else {
-    //         $products = collect();
-    //     }
-
-    //     return view('product/searchProducts')->with([
-    //         'products' => $products
-    //     ]);
-    // }
-
 }

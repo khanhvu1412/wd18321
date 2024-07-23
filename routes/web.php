@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\UserContronller;
 // use App\Http\Controllers\SinhVienController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductController;
 
 // GET POST => Method HTTP
 // a url 
@@ -57,52 +57,34 @@ use App\Http\Controllers\ProductController;
 // });
 
 // Lap2 CRUD product
-Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
-    Route::get('list-product', [ProductController::class, 'listProducts'])->name('listProducts');
+// Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+//     Route::get('list-product', [ProductController::class, 'listProducts'])->name('listProducts');
 
-    Route::get('add-product', [ProductController::class, 'addProducts'])->name('addProducts');
+//     Route::get('add-product', [ProductController::class, 'addProducts'])->name('addProducts');
 
-    Route::post('add-product', [ProductController::class, 'addPostProducts'])->name('addPostProducts');
+//     Route::post('add-product', [ProductController::class, 'addPostProducts'])->name('addPostProducts');
 
-    Route::get('delete-product/{idPro}', [ProductController::class, 'deleteProducts'])->name('deleteProducts');
+//     Route::get('delete-product/{idPro}', [ProductController::class, 'deleteProducts'])->name('deleteProducts');
 
-    Route::get('update-product/{idPro}', [ProductController::class, 'updateProducts'])->name('updateProducts');
+//     Route::get('update-product/{idPro}', [ProductController::class, 'updateProducts'])->name('updateProducts');
 
-    Route::post('update-product}', [ProductController::class, 'updatePostProducts'])->name('updatePostProducts');
+//     Route::post('update-product}', [ProductController::class, 'updatePostProducts'])->name('updatePostProducts');
 
-    Route::get('search-product}', [ProductController::class, 'searchProducts'])->name('searchProducts');
+//     // Route::get('search-product}', [ProductController::class, 'searchProducts'])->name('searchProducts');
 
-    // Route::get('search-get-product}', [ProductController::class, 'searchGetProducts'])->name('searchGetProducts');
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /*
-// |--------------------------------------------------------------------------
-// | Web Routes
-// |--------------------------------------------------------------------------
-// |
-// | Here is where you can register web routes for your application. These
-// | routes are loaded by the RouteServiceProvider and all of them will
-// | be assigned to the "web" middleware group. Make something great!
-// |
-// */
-
-// Route::get('/', function () {
-//     return view('welcome');
+//     // Route::get('search-get-product}', [ProductController::class, 'searchGetProducts'])->name('searchGetProducts');
 // });
+
+
+// Route::get('test', [UserContronller::class, 'test']);
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+        // list product
+        Route::get('/', [ProductController::class, 'listProducts'])->name('listProducts');
+
+        Route::get('add-product', [ProductController::class, 'addProduct'])->name('addProduct');
+        Route::post('add-product', [ProductController::class, 'addPostProduct'])->name('addPostProduct');
+
+    });
+});

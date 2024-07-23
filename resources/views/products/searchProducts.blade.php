@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,10 +9,7 @@
 <body>
     <div class="container">
         <h3 class="text-center">Tìm kiếm</h3>
-        <form action="" class="w-25">
-            <input type="text" name="search" class="form-control">
-            <button class="btn btn-primary mt-3">Tìm kiếm</button>
-        </form>
+        
     </div>
 </body>
-</html>
+</html> -->

@@ -9,24 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    // php artisan migate
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('product', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('name',200);
+            $table->float('price',8,2);
+            $table->integer('view');
+            $table->timestamps(); // created_at / updated_at
         });
     }
 
     /**
      * Reverse the migrations.
      */
+    // php artisan migate::rollback | reset
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('product');
     }
 };
