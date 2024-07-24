@@ -2,6 +2,7 @@
 @push('style')
     
 @endpush
+
 @section('content')
     <div class="container mt-4">
         <h3>Thêm mới sản phẩm</h3>
@@ -18,6 +19,7 @@
         </form>
     </div>
 @endsection
+
 @push('scripts')
     
 @endpush

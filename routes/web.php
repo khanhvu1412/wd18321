@@ -82,9 +82,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
         // list product
         Route::get('/', [ProductController::class, 'listProducts'])->name('listProducts');
-
         Route::get('add-product', [ProductController::class, 'addProduct'])->name('addProduct');
         Route::post('add-product', [ProductController::class, 'addPostProduct'])->name('addPostProduct');
+        Route::delete('delete-product', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+        Route::get('detail-product/{idProduct}', [ProductController::class, 'detailProduct'])->name('detailProduct');
+        Route::get('update-product/{idProduct}', [ProductController::class, 'updateProduct'])->name('updateProduct');
+        Route::patch('update-product/{idProduct}', [ProductController::class, 'updatePatchProduct'])->name('updatePatchProduct');
+
+
+
 
     });
 });
