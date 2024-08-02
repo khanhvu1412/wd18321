@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\UserContronller;
 // use App\Http\Controllers\SinhVienController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\AuthenticationController;
 
 // GET POST => Method HTTP
 // a url 
@@ -78,8 +79,31 @@ use App\Http\Controllers\Admin\ProductController;
 
 // Route::get('test', [UserContronller::class, 'test']);
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+
+
+Route::get('login', [AuthenticationController::class, 'login'])->name('login');
+Route::post('login', [AuthenticationController::class, 'postLogin'])->name('postLogin');
+Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');
+Route::get('register', [AuthenticationController::class, 'register'])->name('register');
+Route::post('post-register', [AuthenticationController::class, 'postRegister'])->name('postRegister');
+
+
+
+
+
+
+// Admin
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => 'checkAdmin'
+], function () {
+
+    Route::group([
+        'prefix' => 'products',
+        'as' => 'products.'
+    ], function () {
         // list product
         Route::get('/', [ProductController::class, 'listProducts'])->name('listProducts');
         Route::get('add-product', [ProductController::class, 'addProduct'])->name('addProduct');
